@@ -1,9 +1,5 @@
 [
     {
-        "name": "Invoke-Test.ps1",
-        "version": "0.0.1"
-    },
-    {
         "name": "Install-PoShScript.ps1",
         "version": "1.0.0"
     }
