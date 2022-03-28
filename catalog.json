@@ -23,5 +23,10 @@
         "id": "0cf98cdf-27f2-41dc-8194-471df8500e89",
         "name": "Start-ServeurPhp.ps1",
         "version": "1.1.0"
+    },
+    {
+        "id": "211a6705-cb4f-4dcf-bd57-8f2e370308c3",
+        "name": "Start-Watch.ps1",
+        "version": "1.3.1"
     }
 ]
