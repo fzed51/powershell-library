@@ -1,6 +1,7 @@
 [
     {
+        "id": "0471ed1e-f07f-42e5-b49c-74aaebce2934",
         "name": "Install-PoShScript.ps1",
-        "version": "1.0.1"
+        "version": "1.0.2"
     }
 ]
