@@ -1,0 +1,9 @@
+# updated : 2022-02-24
+
+# POWERSHELL
+*.ps1 texte working-tree-encoding=UTF-16 eol=crlf
+*.psm1 texte working-tree-encoding=UTF-16 eol=crlf
+*.psd1 texte working-tree-encoding=UTF-16 eol=crlf
+*.psc1 texte working-tree-encoding=UTF-16 eol=crlf
+*.ps1xml texte working-tree-encoding=UTF-16 eol=crlf
+*.clixml texte working-tree-encoding=UTF-16 eol=crlf

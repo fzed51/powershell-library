@@ -24,9 +24,8 @@ function updateScript {
     )
 
     $Temps = New-Guid
-    $OldScript = Join-Path $PowershellScriptDirectory $Old.name
-    Move-Item $OldScript -Destination $Temps
-
+    Rename-Item -Path (Join-Path $PowershellScriptDirectory $Old.name) -NewName $Temps
+    
     $Collection = $Collection | Where-Object { $_.id -ne $Old.id }
     if ($Null -eq $Collection) {
         $Collection = @()
@@ -37,23 +36,29 @@ function updateScript {
 
     try {
         Invoke-WebRequest ($RegistryLIbrary + $New.name ) -OutFile (Join-Path $PowershellScriptDirectory $New.name)
-        Remove-Item $Temps
+        Remove-Item (Join-Path $PowershellScriptDirectory $Temps)
+        Write-Host ("{0} a été mis à jour " -f $Old.name) -NoNewline
+        Write-Host $Old.version -NoNewline -ForegroundColor DarkGreen
+        Write-Host  " -> " -NoNewline 
+        Write-Host $New.version -NoNewline -ForegroundColor Green
+        
     }
     catch {
-        Move-Item $Temps -Destination $OldScript
+        Rename-Item -Path (Join-Path $PowershellScriptDirectory $Temps) -NewName $Old.name
     }
     $Collection = $Collection + $New
 
     return $Collection
 }
 
+$NewInstalled = $Installed.Clone()
 $Installed | ForEach-Object {
     $InstalledScript = $_
     $catalog `
-    | Where-Object { $catalog.id -eq $InstalledScript.id -and $catalog.version -eq $InstalledScript.version } `
+    | Where-Object { $_.id -eq $InstalledScript.id -and $_.version -ne $InstalledScript.version } `
     | ForEach-Object {
-        $Installed = updateScript -Old $InstalledScript -New $_ -Collection $Installed
+        $NewInstalled = updateScript -Old $InstalledScript -New $_ -Collection $NewInstalled
     }
 }
 
-$Installed | ConvertTo-Json | Set-Content $InstalledScriptFile -Encoding ascii
+$NewInstalled | ConvertTo-Json | Set-Content $InstalledScriptFile -Encoding ascii
