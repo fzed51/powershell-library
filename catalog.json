@@ -13,5 +13,10 @@
         "id": "6c61b905-193b-4035-ae38-3ea3d34ded53",
         "name": "Get-PhotoFromScreenLocked.ps1",
         "version": "1.2.3"
+    },
+    {
+        "id": "8eab5759-bc66-469e-a1c8-3e76a4bc4031",
+        "name": "Invoke-NpmScript.ps1",
+        "version": "1.1.2"
     }
 ]
