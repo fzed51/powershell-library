@@ -1,15 +1,15 @@
-$RegistryLIbrary = "https://raw.githubusercontent.com/fzed51/powershell-library/main/library/"
+$RegistryLIbrary = "https://fzed51.github.io/powershell-library/library/"
 $PowershellDirectory = Split-Path $profile
 $PowershellScriptDirectory = Join-Path $PowershellDirectory "Scripts"
 $InstalledScriptFile = Join-Path $PowershellDirectory "installed-script.json"
 
 # RECUPERATION DU CATALOGUE
-$handleWeb = wget "https://raw.githubusercontent.com/fzed51/powershell-library/main/catalog.json"
+$handleWeb = wget "https://fzed51.github.io/powershell-library/catalog.json"
 $catalog = ($handleWeb.content | ConvertFrom-Json)
 
 # RECUPERATION DES SCRIPTS INSTALLES
 $Installed = Get-Content $InstalledScriptFile | ConvertFrom-Json
-if ($Installed -eq $Null) {
+if ($Null -eq $Installed) {
     $Installed = @()
 }
 if ($Installed.GetType().Name -eq "PSCustomObject") {
