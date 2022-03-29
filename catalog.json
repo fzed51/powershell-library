@@ -33,5 +33,15 @@
         "id": "88a1dac5-75d3-40f3-a72b-61824d1470f9",
         "name": "Update-Ffmpeg.ps1",
         "version": "1.0.2"
+    },
+    {
+        "id": "bd98c7bb-95a0-4ce2-b2b0-e63814d72cab",
+        "name": "Read-PHPIni.ps1",
+        "version": "1.0.0"
+    },
+    {
+        "id": "0391ee62-9450-4508-9d80-836683b95404",
+        "name": "Write-PHPIni.ps1",
+        "version": "1.0.0"
     }
 ]
