@@ -7,6 +7,23 @@ $PowershellDirectory = Split-Path $profile
 $PowershellScriptDirectory = Join-Path $PowershellDirectory "Scripts"
 $InstalledScriptFile = Join-Path $PowershellDirectory "installed-script.json"
 
+# TEST $PowershellScriptDirectory dans $env:path
+if (-not (Test-Path $PowershellScriptDirectory -PathType Container)) {
+    New-Item $PowershellScriptDirectory -Force | Out-Null
+}
+$EnvPath = $env:path.split(';') `
+| ForEach-Object {
+    if ($_.StartsWith('.')) { $_.TrimEnd('\') }
+    else { ($_ | Resolve-Path -ea Ignore).Path.TrimEnd('\') }
+}
+if (-not( $EnvPath -contains $PowershellScriptDirectory )) {
+    $EnvPath = [System.Environment]::GetEnvironmentVariable('Path', 'User').split(';') `
+    | ForEach-Object { $_.TrimEnd('\') } `
+    | Select-Object -Unique
+    $EnvPath + $PowershellScriptDirectory
+    [System.Environment]::SetEnvironmentVariable('Path', $EnvPath -join ";", "User");
+}
+
 $Index = 1
 $catalog | ForEach-Object {
     Write-Host ("{0} - {1}" -f $Index, $_.name)
