@@ -43,5 +43,10 @@
         "id": "0391ee62-9450-4508-9d80-836683b95404",
         "name": "Write-PHPIni.ps1",
         "version": "1.0.0"
+    },
+    {
+        "id": "46c7c106-6046-417c-9e32-15aa50b2afa6",
+        "name": "Move-ItemAndReplaceBySymbolic.ps1",
+        "version": "1.0.0"
     }
 ]
