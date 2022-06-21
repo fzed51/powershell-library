@@ -26,6 +26,16 @@ Write-Host ("Vous allez installer {0}" -f $Script.name)
 if (-not (Test-Path $PowershellScriptDirectory -PathType Container)) {
     New-Item $PowershellScriptDirectory -Force | Out-Null
 }
+# Test du dossier scripts dans la variable d'environement Path
+[string[]]$Path = `
+([System.Environment]::GetEnvironmentVariable('PATH', 'user')).split(';') `
+| ForEach-Object { $_.TrimEnd('/\') }
+if ($Path -notcontains $PowershellScriptDirectory.TrimEnd('/\')) {
+    [System.Environment]::SetEnvironmentVariable('PATH', (
+        ($Path -join ";") + ";" + $PowershellScriptDirectory
+        ), 'user')
+    Write-Host ("Le dossier {0} a été enregistré dans les variables d'environement" -f $PowershellScriptDirectory)
+}
 
 Invoke-WebRequest ($RegistryLIbrary + $Script.name ) -OutFile (Join-Path $PowershellScriptDirectory $Script.name)
 

@@ -26,6 +26,16 @@ Write-Host ("Vous allez installer le module {0}" -f $Module.name)
 if (-not (Test-Path $PowershellModuleDirectory -PathType Container)) {
     New-Item $PowershellModuleDirectory -Force | Out-Null
 }
+# Test du dossier module dans la variable d'environement PSModulePath
+[string[]]$EnvPSModulePath = `
+([System.Environment]::GetEnvironmentVariable('PSModulePath', 'user')).split(';') `
+| ForEach-Object { $_.TrimEnd('/\') }
+if ($EnvPSModulePath -notcontains $PowershellModuleDirectory.TrimEnd('/\')) {
+    [System.Environment]::SetEnvironmentVariable('PSModulePath', (
+        ($PowershellModuleDirectory + ";" + ($EnvPSModulePath -join ";"))
+        ), 'user')
+    Write-Host ("Le dossier {0} a été enregistré dans les variables d'environement" -f $PowershellModuleDirectory)
+}
 
 Invoke-WebRequest ($RegistryLIbrary + $Module.name ) -OutFile (Join-Path $PowershellModuleDirectory $Module.name)
 

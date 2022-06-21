@@ -2,7 +2,7 @@ $URL = "https://fzed51.github.io/powershell-library"
 
 $RegistryLIbrary = $URL + "/library/"
 $PowershellDirectory = Split-Path $profile
-$PowershellModuleDirectory = Join-Path $PowershellDirectory "Scripts"
+$PowershellModuleDirectory = Join-Path $PowershellDirectory "Modules"
 $InstalledModuleFile = Join-Path $PowershellDirectory "installed-module.json"
 
 # RECUPERATION DU CATALOGUE
