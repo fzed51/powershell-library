@@ -4,7 +4,7 @@ $PowershellScriptDirectory = Join-Path $PowershellDirectory "Scripts"
 $InstalledScriptFile = Join-Path $PowershellDirectory "installed-script.json"
 
 # RECUPERATION DU CATALOGUE
-$handleWeb = wget "https://fzed51.github.io/powershell-library/catalog.json"
+$handleWeb = wget "https://fzed51.github.io/powershell-library/scripts_catalog.json"
 $catalog = ($handleWeb.content | ConvertFrom-Json)
 
 # RECUPERATION DES SCRIPTS INSTALLES
