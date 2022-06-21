@@ -1,8 +1,8 @@
 $URL = "https://fzed51.github.io/powershell-library"
-$handleWeb = Invoke-WebRequest ($URL + "/catalog.json")
+$handleWeb = Invoke-WebRequest ($URL + "/script_catalog.json")
 $catalog = ($handleWeb.content | ConvertFrom-Json)
 
-$RegistryLIbrary = $URL + "/library/"
+$RegistryLIbrary = $URL + "/library/scripts/"
 $PowershellDirectory = Split-Path $profile
 $PowershellScriptDirectory = Join-Path $PowershellDirectory "Scripts"
 $InstalledScriptFile = Join-Path $PowershellDirectory "installed-script.json"
@@ -13,7 +13,12 @@ $catalog | ForEach-Object {
     $Index ++
 }
 
-[int]$NScript = Read-Host "No du script à installer"
+$Rep = Read-Host "No du script à installer"
+if ($Rep -notmatch "\d+") {
+    # FIN DU SCRIPT
+    return ;
+}
+[int]$NScript = $Rep
 
 $Script = $catalog[$NScript - 1];
 Write-Host ("Vous allez installer {0}" -f $Script.name) 
