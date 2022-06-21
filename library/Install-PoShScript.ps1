@@ -1,7 +1,8 @@
-$handleWeb = wget "https://fzed51.github.io/powershell-library/catalog.json"
+$URL = "https://fzed51.github.io/powershell-library"
+$handleWeb = Invoke-WebRequest ($URL + "/catalog.json")
 $catalog = ($handleWeb.content | ConvertFrom-Json)
 
-$RegistryLIbrary = "https://fzed51.github.io/powershell-library/library/"
+$RegistryLIbrary = $URL + "/library/"
 $PowershellDirectory = Split-Path $profile
 $PowershellScriptDirectory = Join-Path $PowershellDirectory "Scripts"
 $InstalledScriptFile = Join-Path $PowershellDirectory "installed-script.json"
@@ -21,11 +22,11 @@ if (-not (Test-Path $PowershellScriptDirectory -PathType Container)) {
     New-Item $PowershellScriptDirectory -Force | Out-Null
 }
 
-wget ($RegistryLIbrary + $Script.name ) -OutFile (Join-Path $PowershellScriptDirectory $Script.name)
+Invoke-WebRequest ($RegistryLIbrary + $Script.name ) -OutFile (Join-Path $PowershellScriptDirectory $Script.name)
 
 if (Test-Path $InstalledScriptFile -PathType Leaf) {
     $Installed = Get-Content $InstalledScriptFile | ConvertFrom-Json
-    if ($Installed -eq $Null) {
+    if ($Null -eq $Installed) {
         $Installed = @()
     }
     if ($Installed.GetType().Name -eq "PSCustomObject") {
@@ -33,7 +34,7 @@ if (Test-Path $InstalledScriptFile -PathType Leaf) {
     } 
 }
 $Installed = $Installed | Where-Object { $_.id -ne $Script.id }
-if ($Installed -eq $Null) {
+if ($Null -eq $Installed) {
     $Installed = @()
 }
 if ($Installed.GetType().Name -eq "PSCustomObject") {
