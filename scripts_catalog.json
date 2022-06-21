@@ -2,12 +2,12 @@
   {
     "id": "0471ed1e-f07f-42e5-b49c-74aaebce2934",
     "name": "Install-PoShScript.ps1",
-    "version": "2.0.1"
+    "version": "2.0.2"
   },
   {
     "id": "70b9dd14-73a5-4dab-bb61-36730947bf31",
     "name": "Update-PoShScript.ps1",
-    "version": "2.0.0"
+    "version": "2.0.1"
   },
   {
     "id": "6c61b905-193b-4035-ae38-3ea3d34ded53",
@@ -52,11 +52,11 @@
   {
     "id": "bcd73bed-5a7f-48eb-8f25-897d8b1a4e56",
     "name": "Install-PoShModule.ps1",
-    "version": "1.0.1"
+    "version": "1.0.2"
   },
   {
     "id": "6722cb4b-24df-4101-a34a-1d7f68794926",
     "name": "Update-PoShModule.ps1",
-    "version": "1.0.1"
+    "version": "1.0.2"
   }
 ]

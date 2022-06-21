@@ -47,15 +47,18 @@ if (Test-Path $InstalledScriptFile -PathType Leaf) {
     if ($Installed.GetType().Name -eq "PSCustomObject") {
         $Installed = @($Installed)
     } 
-}
-$Installed = $Installed | Where-Object { $_.id -ne $Script.id }
-if ($Null -eq $Installed) {
-    $Installed = @()
-}
-if ($Installed.GetType().Name -eq "PSCustomObject") {
-    $Installed = @($Installed)
-} 
+    $Installed = $Installed | Where-Object { $_.id -ne $Script.id }
+    if ($Null -eq $Installed) {
+        $Installed = @()
+    }
+    if ($Installed.GetType().Name -eq "PSCustomObject") {
+        $Installed = @($Installed)
+    } 
 
-$Installed = $Installed + $Script
+    $Installed = $Installed + $Script
 
-$Installed | ConvertTo-Json | Set-Content $InstalledScriptFile -Encoding ascii
+    $Installed | ConvertTo-Json | Set-Content $InstalledScriptFile -Encoding ascii
+}
+else {
+    Write-Error "Un problème est survenu lors du téléchargement du fichier" -Category ResourceUnavailable -ErrorAction Stop
+}

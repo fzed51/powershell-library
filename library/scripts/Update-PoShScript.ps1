@@ -41,12 +41,12 @@ function updateScript {
         Write-Host $Old.version -NoNewline -ForegroundColor DarkGreen
         Write-Host  " -> " -NoNewline 
         Write-Host $New.version -NoNewline -ForegroundColor Green
-        
+        $Collection = $Collection + $New
     }
     catch {
         Rename-Item -Path (Join-Path $PowershellScriptDirectory $Temps) -NewName $Old.name
+        $Collection = $Collection + $Old
     }
-    $Collection = $Collection + $New
 
     return $Collection
 }

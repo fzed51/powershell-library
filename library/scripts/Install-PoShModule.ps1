@@ -47,15 +47,18 @@ if (Test-Path $InstalledModuleFile -PathType Leaf) {
     if ($Installed.GetType().Name -eq "PSCustomObject") {
         $Installed = @($Installed)
     } 
-}
-$Installed = $Installed | Where-Object { $_.id -ne $Module.id }
-if ($Null -eq $Installed) {
-    $Installed = @()
-}
-if ($Installed.GetType().Name -eq "PSCustomObject") {
-    $Installed = @($Installed)
-} 
+    $Installed = $Installed | Where-Object { $_.id -ne $Module.id }
+    if ($Null -eq $Installed) {
+        $Installed = @()
+    }
+    if ($Installed.GetType().Name -eq "PSCustomObject") {
+        $Installed = @($Installed)
+    } 
 
-$Installed = $Installed + $Module
+    $Installed = $Installed + $Module
 
-$Installed | ConvertTo-Json | Set-Content $InstalledModuleFile -Encoding ascii
+    $Installed | ConvertTo-Json | Set-Content $InstalledModuleFile -Encoding ascii
+}
+else {
+    Write-Error "Un problème est survenu lors du téléchargement du fichier" -Category ResourceUnavailable -ErrorAction Stop
+}
