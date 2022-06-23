@@ -1,7 +1,15 @@
 [
   {
     "id": "5d47fe3b-f4d4-4b18-89c9-eda4663cabf0",
-    "name": "PoShEnv.psm1",
-    "version": "1.0.0"
+    "name": "PoShEnv",
+    "version": "1.0.0",
+    "files": ["PoShEnv.psm1"],
+    "functions": [
+      "Set-Env",
+      "Get-Env",
+      "Add-EnvList",
+      "Test-Env",
+      "Test-EnvList"
+    ]
   }
 ]
