@@ -1,11 +1,24 @@
 $URL = "https://fzed51.github.io/powershell-library"
-$handleWeb = Invoke-WebRequest ($URL + "/scripts_catalog.json")
+$handleWeb = Invoke-WebRequest ($URL + "/scriptatalog.json")
 $catalog = ($handleWeb.content | ConvertFrom-Json)
 
 $RegistryLIbrary = $URL + "/library/scripts/"
 $PowershellDirectory = Split-Path $profile
 $PowershellScriptDirectory = Join-Path $PowershellDirectory "Scripts"
 $InstalledScriptFile = Join-Path $PowershellDirectory "installed-script.json"
+
+function Join-Url {
+    [CmdletBinding()]
+    param (
+        [Parameter()]
+        [String]
+        $Parent,
+        [Parameter()]
+        [String]
+        $Child
+    )
+    return $Parent.TrimEnd('/') + '/' + $Child.TrimStart('/')
+}
 
 $Index = 1
 $catalog | ForEach-Object {
@@ -37,7 +50,9 @@ if ($Path -notcontains $PowershellScriptDirectory.TrimEnd('/\')) {
     Write-Host ("Le dossier {0} a été enregistré dans les variables d'environement" -f $PowershellScriptDirectory)
 }
 
-Invoke-WebRequest ($RegistryLIbrary + $Script.name ) -OutFile (Join-Path $PowershellScriptDirectory $Script.name)
+$UrlScript = Join-Url $RegistryLIbrary $Script.name
+$PathScript = Join-Path $PowershellScriptDirectory $Script.name
+Invoke-WebRequest $UrlScript -OutFile $PathScript -ErrorAction Stop
 
 if (Test-Path $InstalledScriptFile -PathType Leaf) {
     $Installed = Get-Content $InstalledScriptFile | ConvertFrom-Json
@@ -47,18 +62,19 @@ if (Test-Path $InstalledScriptFile -PathType Leaf) {
     if ($Installed.GetType().Name -eq "PSCustomObject") {
         $Installed = @($Installed)
     } 
-    $Installed = $Installed | Where-Object { $_.id -ne $Script.id }
-    if ($Null -eq $Installed) {
-        $Installed = @()
-    }
-    if ($Installed.GetType().Name -eq "PSCustomObject") {
-        $Installed = @($Installed)
-    } 
-
-    $Installed = $Installed + $Script
-
-    $Installed | ConvertTo-Json | Set-Content $InstalledScriptFile -Encoding ascii
 }
 else {
-    Write-Error "Un problème est survenu lors du téléchargement du fichier" -Category ResourceUnavailable -ErrorAction Stop
+    $Installed = @()
 }
+
+$Installed = $Installed | Where-Object { $_.id -ne $Script.id }
+if ($Null -eq $Installed) {
+    $Installed = @()
+}
+if ($Installed.GetType().Name -eq "PSCustomObject") {
+    $Installed = @($Installed)
+} 
+
+$Installed = $Installed + $Script
+
+$Installed | ConvertTo-Json | Set-Content $InstalledScriptFile -Encoding ascii
