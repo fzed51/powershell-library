@@ -58,5 +58,15 @@
     "id": "6722cb4b-24df-4101-a34a-1d7f68794926",
     "name": "Update-PoShModule.ps1",
     "version": "1.0.2"
+  },
+  {
+    "id": "9e1b8efe-384e-4442-9f21-58d5754c1392",
+    "name": "Get-LastPhpVersion.ps1",
+    "version": "1.0.0"
+  },
+  {
+    "id": "8ba6f0b3-a803-4d8e-a503-3df86fe98d7e",
+    "name": "Install-Php.ps1",
+    "version": "1.0.0"
   }
 ]
