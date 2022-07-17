@@ -2,11 +2,7 @@
     {
         "id": "0471ed1e-f07f-42e5-b49c-74aaebce2934",
         "name": "Install-PoShScript.ps1",
-<<<<<<< HEAD
         "version": "2.0.0"
-=======
-        "version": "1.0.4"
->>>>>>> 1d96b20 (feat / Install-PoShScript version 1.0.4)
     },
     {
         "id": "70b9dd14-73a5-4dab-bb61-36730947bf31",
