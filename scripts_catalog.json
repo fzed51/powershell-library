@@ -73,5 +73,10 @@
     "id": "6754f6f0-90d6-48b8-ae21-70d2908e8431",
     "name": "Push-DirectoryToFtp.ps1",
     "version": "1.0.0"
+  },
+  {
+    "id": "2a442ca4-9d0b-4fcc-bf67-bccce6fc6b93",
+    "name": "Set-LocationInteractive.ps1",
+    "version": "1.0.0"
   }
 ]
