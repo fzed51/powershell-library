@@ -23,6 +23,10 @@ else {
     $Nts = ""
 }
 
+# TODO : Ajouter une selection du vs en fonction de la version
+#   ex :
+#     vs = vs15
+#     si version >= 8.0.0 alors vs = vs16
 $PhpName = "php-$Version$Nts-Win32-vs16-$Archi"
 $TmpFile = Join-Path $Env:Tmp "$PhpName.zip"
 $Link = "https://windows.php.net/downloads/releases/$PhpName.zip"
@@ -34,6 +38,8 @@ Invoke-WebRequest -Uri $Link -OutFile $TmpFile
 
 # Preparation du dossier d'installation
 
+# TODO : Essayer de récupérer PhpDirectory en récuperant la source de
+#    la commande php
 $PhpDirectory = Join-Path $env:ProgramFiles "php"
 $PhpDirectoryRun = Join-Path $PhpDirectory "php"
 $PhpDirectoryVersion = Join-Path $PhpDirectory $PhpName
