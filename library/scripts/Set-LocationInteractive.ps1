@@ -23,12 +23,11 @@ function InstallAlias {
     if ($Null -ne (get-alias cdi -erroraction Ignore)) {
         Write-Error "L'alias existe déjà" -Category OperationStopped -ErrorAction Stop
     }
-    $MyPath = Get-Item $MyInvocation.MyCommand
+    $MyPath = Get-Item $MyInvocation.ScriptName
     @"
-    New-Alias -Name cdi -Value $MyPath
+New-Alias -Name cdi -Value $MyPath
 "@ | Add-Content $PROFILE
 }
-
 
 function SetLocation {
     Param(
@@ -42,7 +41,7 @@ function SetLocation {
         [string]$Drive = $Matches[1]
         [string]$Path = $Matches[2]
 
-        $Path = $Path.replace('//', '/')
+        # $Path = $Path.replace('//', '/')
         $Path = $Path.replace('/', '*/')
         $Path = $Path.replace('~*/', '~/')
         $Path = $Path.replace('.*/', './')
