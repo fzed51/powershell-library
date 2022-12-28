@@ -1,4 +1,4 @@
-$RegistryLIbrary = "https://fzed51.github.io/powershell-library/library/"
+$RegistryLIbrary = "https://fzed51.github.io/powershell-library/library/Scripts"
 $PowershellDirectory = Split-Path $profile
 $PowershellScriptDirectory = Join-Path $PowershellDirectory "Scripts"
 $InstalledScriptFile = Join-Path $PowershellDirectory "installed-script.json"
