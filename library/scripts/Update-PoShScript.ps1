@@ -1,4 +1,7 @@
-$RegistryLIbrary = "https://fzed51.github.io/powershell-library/library/scripts"
+[CmdletBinding()]
+param ()
+
+$RegistryLIbrary = "https://fzed51.github.io/powershell-library/library/scripts/"
 $PowershellDirectory = Split-Path $profile
 $PowershellScriptDirectory = Join-Path $PowershellDirectory "Scripts"
 $InstalledScriptFile = Join-Path $PowershellDirectory "installed-script.json"
@@ -40,10 +43,14 @@ function updateScript {
         Write-Host ("{0} a été mis à jour " -f $Old.name) -NoNewline
         Write-Host $Old.version -NoNewline -ForegroundColor DarkGreen
         Write-Host  " -> " -NoNewline 
-        Write-Host $New.version -NoNewline -ForegroundColor Green
+        Write-Host $New.version -ForegroundColor Green
         $Collection = $Collection + $New
     }
     catch {
+        Write-Host ("Une erreur s'est produite lors de la mise à jour de {0}" -f $Old.name) -ForegroundColor Red
+        Write-Verbose ("Current version : {0}, new version : {1}" -f $Old.version, $New.version)
+        Write-Verbose ("URL : {0}" -f (RegistryLIbrary + $New.name))
+        Write-Verbose ("Erreur : {0}" -f $_)
         Rename-Item -Path (Join-Path $PowershellScriptDirectory $Temps) -NewName $Old.name
         $Collection = $Collection + $Old
     }
