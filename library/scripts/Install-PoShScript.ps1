@@ -1,5 +1,5 @@
 $URL = "https://fzed51.github.io/powershell-library"
-$handleWeb = Invoke-WebRequest ($URL + "/scriptatalog.json")
+$handleWeb = Invoke-WebRequest ($URL + "/scripts_catalog.json")
 $catalog = ($handleWeb.content | ConvertFrom-Json)
 
 $RegistryLIbrary = $URL + "/library/scripts/"
